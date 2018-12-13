@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace HandItDown.Models
 {
-    public class Item
+    public class WishList
     {
 
         [Key]
-        public int ItemId { get; set; }
+        public int WishListId { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -34,6 +34,8 @@ namespace HandItDown.Models
         [Required]
         public string UserId { get; set; }
 
+        public string City { get; set; }
+
         public string ImagePath { get; set; }
 
         [Required]
@@ -45,7 +47,7 @@ namespace HandItDown.Models
 
         public Attribute Attribute { get; set; }
 
-       // public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        // public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 
     }
 }

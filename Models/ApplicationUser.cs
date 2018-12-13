@@ -21,7 +21,6 @@ namespace HandItDown.Models
 
         // Set up PK -> FK relationships to other objects
          public virtual ICollection<Item> Items { get; set; }
-         public virtual ICollection<Group> Groups { get; set; }
 
       
     }
