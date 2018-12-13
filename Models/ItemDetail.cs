@@ -2,10 +2,10 @@
 
 namespace HandItDown.Models
 {
-    public class ItemAttribute
+    public class ItemDetail
     {
         [Key]
-        public int ItemAttributeId { get; set; }
+        public int ItemDetailId { get; set; }
 
         [Required]
         public int ItemId { get; set; }
@@ -13,9 +13,9 @@ namespace HandItDown.Models
         public Item Item { get; set; }
 
         [Required]
-        public int AttributeId { get; set; }
+        public int DetailId { get; set; }
 
-        public Attribute Attribute { get; set; }
+        public Detail Detail { get; set; }
 
     }
 }

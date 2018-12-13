@@ -45,7 +45,7 @@ namespace HandItDown.Models
         [Display(Name = "Item Attributes")]
         public int AttributeId { get; set; }
 
-        public Attribute Attribute { get; set; }
+        public Detail Details { get; set; }
 
         // public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 

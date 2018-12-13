@@ -36,16 +36,11 @@ namespace HandItDown.Models
 
         public string ImagePath { get; set; }
 
+
         [Required]
         public ApplicationUser User { get; set; }
 
-        [Required]
-        [Display(Name = "Item Attributes")]
-        public int AttributeId { get; set; }
-
-        public Attribute Attribute { get; set; }
-
-       // public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+       public virtual ICollection<ItemDetail> ItemDetails { get; set; }
 
     }
 }

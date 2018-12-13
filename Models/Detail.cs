@@ -4,19 +4,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HandItDown.Models
 {
-    public class Attribute
+    public class Detail
     {
         [Key]
-        public int AttributeId { get; set; }
+        public int DetailId { get; set; }
 
         [Required]
         [StringLength(255)]
-        [Display(Name = "Category:")]
+        [Display(Name = "Detail:")]
         public string Label { get; set; }
 
         [NotMapped]
         public int Quantity { get; set; }
 
-        public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<ItemDetail> ItemDetails { get; set; }
     }
 }
