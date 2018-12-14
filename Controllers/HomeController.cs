@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HandItDown.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HandItDown.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public IActionResult Index()
