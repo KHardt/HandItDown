@@ -12,10 +12,12 @@ namespace HandItDown.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<Item> Items { get; set; }
-        public DbSet<ItemType> ItemTypes { get; set; }
+        public DbSet<Clothing> Clothing { get; set; }
+        public DbSet<ClothingType> ClothingType { get; set; }
+        public DbSet<Toy> Toy { get; set; }
+        public DbSet<ToyType> ToyType { get; set; }
+        public DbSet<Book> Book { get; set; }
         public DbSet<Status> Statuses { get; set; }
-        public DbSet<WishList> WishLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,23 +25,34 @@ namespace HandItDown.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
-            modelBuilder.Entity<Item>()
-                .Property(b => b.DateCreated)
-                .HasDefaultValueSql("GETDATE()");
-            modelBuilder.Entity<WishList>()
-              .Property(b => b.DateCreated)
-              .HasDefaultValueSql("GETDATE()");
 
 
-            modelBuilder.Entity<ItemType>()
-               .HasMany(it => it.Items)
-               .WithOne(i => i.ItemType)
+
+            modelBuilder.Entity<ClothingType>()
+               .HasMany(c => c.Clothing)
+               .WithOne(i => i.ClothingType)
+               .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<ToyType>()
+               .HasMany(it => it.Toys)
+               .WithOne(i => i.ToyType)
                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Status>()
-            .HasMany(s => s.Items)
+            .HasMany(s => s.Books)
             .WithOne(i => i.Status)
             .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Status>()
+           .HasMany(s => s.Toys)
+           .WithOne(i => i.Status)
+           .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Status>()
+           .HasMany(s => s.Clothing)
+           .WithOne(i => i.Status)
+           .OnDelete(DeleteBehavior.Restrict);
 
             ApplicationUser user = new ApplicationUser
             {
@@ -57,37 +70,62 @@ namespace HandItDown.Data
             user.PasswordHash = passwordHash.HashPassword(user, "Admin8*");
             modelBuilder.Entity<ApplicationUser>().HasData(user);
 
-           
 
-            modelBuilder.Entity<ItemType>().HasData(
-                new ItemType()
+
+            modelBuilder.Entity<ClothingType>().HasData(
+                new ClothingType()
                 {
-                    ItemTypeId = 1,
-                    Label = "Toys"
+                    ClothingTypeId = 1,
+                    Label = "Shirts"
                 },
-                new ItemType()
+                new ClothingType()
                 {
-                    ItemTypeId = 2,
-                    Label = "Books"
+                    ClothingTypeId = 2,
+                    Label = "Pants"
                 },
-                new ItemType()
+                new ClothingType()
                 {
-                    ItemTypeId = 3,
-                    Label = "Clothes"
+                    ClothingTypeId = 3,
+                    Label = "Shorts"
                 },
-                 new ItemType()
+                 new ClothingType()
                  {
-                     ItemTypeId = 4,
-                     Label = "Misc"
-                 }
-                );
+                     ClothingTypeId = 4,
+                     Label = "Socks"
+                 },
+                  new ClothingType()
+                  {
+                      ClothingTypeId = 5,
+                      Label = "Sweaters"
+                  },
+                   new ClothingType()
+                   {
+                       ClothingTypeId = 3,
+                       Label = "Shoes"
+                   },
+                    new ClothingType()
+                    {
+                        ClothingTypeId = 3,
+                        Label = "Hats"
+                    },
+                     new ClothingType()
+                     {
+                         ClothingTypeId = 3,
+                         Label = "Jackets"
+                     },
+                    new ClothingType()
+                    {
+                        ClothingTypeId = 6,
+                        Label = "Misc"
+                    }
+                 );
 
             modelBuilder.Entity<Status>().HasData(
                    new Status()
-                {
-                    StatusId = 1,
-                    Label = "Has"
-                },
+                   {
+                       StatusId = 1,
+                       Label = "Has"
+                   },
                 new Status()
                 {
                     StatusId = 2,
@@ -101,46 +139,134 @@ namespace HandItDown.Data
 
                 );
 
-            modelBuilder.Entity<Item>().HasData(
-             new Item()
+
+            modelBuilder.Entity<ToyType>().HasData(
+               new ToyType()
+               {
+                   ToyTypeId = 1,
+                   Label = "Cars and Trucks"
+               },
+               new ToyType()
+               {
+                   ToyTypeId = 2,
+                   Label = "Games and Puzzles"
+               },
+               new ToyType()
+               {
+                   ToyTypeId = 3,
+                   Label = "Slides and outdoor things"
+               }
+
+
+
+               );
+
+            modelBuilder.Entity<Clothing>().HasData(
+              new Clothing()
+              {
+                  ClothingId = 1,
+                  UserId = user.Id,
+                  Description = "",
+                  Quantity = 50,
+                  ClothingTypeId = 1,
+                  StatusId = 1,
+
+              },
+               new Clothing()
+               {
+                   ClothingId = 2,
+                   UserId = user.Id,
+                   Description = "",
+                   Quantity = 50,
+                   ClothingTypeId = 1,
+                   StatusId = 1,
+
+               },
+                new Clothing()
+                {
+                    ClothingId = 3,
+                    UserId = user.Id,
+                    Description = "",
+                    Quantity = 50,
+                    ClothingTypeId = 2,
+                    StatusId = 1,
+
+                }
+ 
+
+              );
+
+              modelBuilder.Entity<Book>().HasData(
+             new Book()
              {
-                 ItemId = 1,
+                 BookId = 1,
                  UserId = user.Id,
-                 Description = "goes vroom",
-                 Name = "toy car",
-                 Quantity = 50,
-                 ItemTypeId = 1,
+                 Quantity = 1,
+                 Author = "Tag",
+                 Title = "Me",
                  StatusId = 1,
 
              },
 
-             new Item()
-             {
-                 ItemId = 2,
-                 UserId = user.Id,
-                 Description = "goes vroom",
-                 Name = "toy car",
-                 Quantity = 5,
-                 ItemTypeId = 2,
-                 StatusId = 1,
+              new Book()
+              {
+                  BookId = 2,
+                  UserId = user.Id,
+                  Quantity = 1,
+                  Author = "Tag",
+                  Title = "Me",
+                  StatusId = 1,
 
-             },
+              },
+               new Book()
+               {
+                   BookId = 3,
+                   UserId = user.Id,
+                   Quantity = 2,
+                   Author = "Tag",
+                   Title = "Me",
+                   StatusId = 1,
 
-             new Item()
-             {
-                 ItemId = 3,
-                 UserId = user.Id,
-                 Description = "goes vroom",
-                 Name = "toy car",
-                 ItemTypeId = 3,
-                 Quantity = 10,
-                 StatusId = 1,
+               }
 
-             }
              );
 
 
+            modelBuilder.Entity<Toy>().HasData(
+            new Toy()
+            {
+                ToyId = 1,
+                UserId = user.Id,
+                Quantity = 1,
+                Description = "",
+                ToyTypeId = 1,
+                StatusId = 1,
 
+            },
+
+             new Toy()
+             {
+                 ToyId = 2,
+                 UserId = user.Id,
+                 Quantity = 1,
+                 Description = "",
+                 ToyTypeId = 3,
+                 StatusId = 1,
+
+             },
+
+              new Toy()
+              {
+                  ToyId = 3,
+                  UserId = user.Id,
+                  Quantity = 1,
+                  Description = "",
+                  ToyTypeId = 2,
+                  StatusId = 1,
+
+              }
+
+              );
 
 
         }

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace HandItDown.Models
 {
-    public class ItemType
+    public class ClothingType
     {
         [Key]
-        public int ItemTypeId { get; set; }
+        public int ClothingTypeId { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -20,7 +20,10 @@ namespace HandItDown.Models
         [NotMapped]
         public int Quantity { get; set; }
 
-        public virtual ICollection<Item> Items { get; set; }
+        [Required]
+        public string UserId { get; set; }
+
+        public virtual ICollection<Clothing> Clothing { get; set; }
     }
 
 }

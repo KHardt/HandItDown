@@ -14,7 +14,9 @@ namespace HandItDown.Models
         [Required]
         public string Label { get; set; }
 
-        public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<Clothing> Clothing { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
+        public virtual ICollection<Toy> Toys { get; set; }
 
     }
 }

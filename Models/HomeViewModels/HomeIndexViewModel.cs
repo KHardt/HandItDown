@@ -7,6 +7,6 @@ namespace HandItDown.Models.HomeIndexViewModel
 {
     public class IndexViewModel
     {
-        public List<Item> AllItems { get; set; }
+        public List<Clothing> AllItems { get; set; }
     }
 }
