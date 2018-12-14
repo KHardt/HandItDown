@@ -13,8 +13,8 @@ namespace HandItDown.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<Detail> Detail { get; set; }
-        public DbSet<ItemDetail> ItemDetails { get; set; }
+        public DbSet<ItemType> ItemTypes { get; set; }
+        public DbSet<Status> Statuses { get; set; }
         public DbSet<WishList> WishLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,7 +31,15 @@ namespace HandItDown.Data
               .HasDefaultValueSql("GETDATE()");
 
 
+            modelBuilder.Entity<ItemType>()
+               .HasMany(it => it.Items)
+               .WithOne(i => i.ItemType)
+               .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Status>()
+            .HasMany(s => s.Items)
+            .WithOne(i => i.Status)
+            .OnDelete(DeleteBehavior.Restrict);
 
             ApplicationUser user = new ApplicationUser
             {
@@ -49,122 +57,92 @@ namespace HandItDown.Data
             user.PasswordHash = passwordHash.HashPassword(user, "Admin8*");
             modelBuilder.Entity<ApplicationUser>().HasData(user);
 
+           
+
+            modelBuilder.Entity<ItemType>().HasData(
+                new ItemType()
+                {
+                    ItemTypeId = 1,
+                    Label = "Toys"
+                },
+                new ItemType()
+                {
+                    ItemTypeId = 2,
+                    Label = "Books"
+                },
+                new ItemType()
+                {
+                    ItemTypeId = 3,
+                    Label = "Clothes"
+                },
+                 new ItemType()
+                 {
+                     ItemTypeId = 4,
+                     Label = "Misc"
+                 }
+                );
+
+            modelBuilder.Entity<Status>().HasData(
+                   new Status()
+                {
+                    StatusId = 1,
+                    Label = "Has"
+                },
+                new Status()
+                {
+                    StatusId = 2,
+                    Label = "Needs"
+                },
+                 new Status()
+                 {
+                     StatusId = 3,
+                     Label = "Donatable"
+                 }
+
+                );
+
             modelBuilder.Entity<Item>().HasData(
-              new Item()
-              {
-                  ItemId = 1,
-                  UserId = user.Id,
-                  Description = "goes vroom",
-                  Name = "toy car",
-                  Quantity = 50,
+             new Item()
+             {
+                 ItemId = 1,
+                 UserId = user.Id,
+                 Description = "goes vroom",
+                 Name = "toy car",
+                 Quantity = 50,
+                 ItemTypeId = 1,
+                 StatusId = 1,
 
-              },
+             },
 
-              new Item()
-              {
-                  ItemId = 2,
-                  UserId = user.Id,
-                  Description = "goes vroom",
-                  Name = "toy car",
-                  Quantity = 5,
+             new Item()
+             {
+                 ItemId = 2,
+                 UserId = user.Id,
+                 Description = "goes vroom",
+                 Name = "toy car",
+                 Quantity = 5,
+                 ItemTypeId = 2,
+                 StatusId = 1,
 
-              },
+             },
 
-              new Item()
-              {
-                  ItemId = 3,
-                  UserId = user.Id,
-                  Description = "goes vroom",
-                  Name = "toy car",
-                  Quantity = 10,
+             new Item()
+             {
+                 ItemId = 3,
+                 UserId = user.Id,
+                 Description = "goes vroom",
+                 Name = "toy car",
+                 ItemTypeId = 3,
+                 Quantity = 10,
+                 StatusId = 1,
 
-              }
-              );
-
-
-            modelBuilder.Entity<Detail>().HasData(
-                new Detail()
-                {
-                    DetailId = 1,
-                    Label = "Book",
-                },
-
-                new Detail()
-                {
-                    DetailId = 2,
-                    Label = "MatchBoxCar",
-                },
-
-                 new Detail()
-                 {
-                     DetailId = 3,
-                     Label = "Clothing",
-                 }
-                 );
-
-            modelBuilder.Entity<ItemDetail>().HasData(
-                  new ItemDetail()
-                  {
-                      ItemDetailId = 1,
-                      ItemId = 1,
-                      DetailId =1
-                     
-                  },
-
-                new ItemDetail()
-                {
-                    ItemDetailId = 2,
-                    ItemId = 1,
-                    DetailId = 2
-                },
-
-                 new ItemDetail()
-                 {
-                     ItemDetailId = 3,
-                     ItemId = 1,
-                     DetailId = 3
-
-                 }
-                 );
-
-            modelBuilder.Entity<WishList>().HasData(
-
-                 new WishList()
-                 {
-                     WishListId = 1,
-                     UserId = user.Id,
-                     Description = "goes vroom",
-                     Name = "toy car",
-                     Quantity = 10,
-
-                 },
-
-                  new WishList()
-                  {
-                      WishListId = 2,
-                      UserId = user.Id,
-                      Description = "goes vroom",
-                      Name = "toy car",
-                      Quantity = 10,
-
-                  },
-
-                   new WishList()
-                   {
-                       WishListId = 3,
-                       UserId = user.Id,
-                       Description = "goes vroom",
-                       Name = "Clothes",
-                       Quantity = 2,
-
-                   }
+             }
+             );
 
 
 
 
 
-
-                 );
         }
     }
 }

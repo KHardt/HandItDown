@@ -24,7 +24,7 @@ namespace HandItDown.Models
         public string Description { get; set; }
 
         [Required]
-        [StringLength(55, ErrorMessage = "Please shorten the item name to 55 characters")]
+        [StringLength(30, ErrorMessage = "Please shorten the item name to 30 characters")]
         public string Name { get; set; }
 
 
@@ -36,16 +36,23 @@ namespace HandItDown.Models
 
         public string ImagePath { get; set; }
 
+        [Required]
+        public int StatusId { get; set; }
+
+        public Status Status { get; set; }
 
         [Required]
         public ApplicationUser User { get; set; }
 
-       public virtual ICollection<ItemDetail> ItemDetails { get; set; }
+        [Required]
+        [Display(Name = "Item Category")]
+        public int ItemTypeId { get; set; }
 
+        public ItemType ItemType { get; set; }
+
+      
     }
 }
-
-
 
 
 
