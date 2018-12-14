@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HandItDown.Migrations
 {
-    public partial class FinalPivot : Migration
+    public partial class Final : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -319,7 +319,7 @@ namespace HandItDown.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "49701908-4d23-499c-ae1a-e0b2fca303a0", 0, "423d3e92-61d7-4a16-9ca8-9f1e833ad8e7", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEL4a2PwhNNcVjYP2PHXC9u8XSufjRfqwrPtSrEGVsW11arbdHtY2j3zxJBt2w3DI7g==", null, false, "bc6f26fe-4067-49bb-a048-d9c6411749dc", false, "admin@admin.com" });
+                values: new object[] { "9d8485ef-3b49-4ba9-884e-ef661934ac03", 0, "fde1eb53-9e80-4add-90ef-d7e661c3181e", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEAN+Cb7COHcu6WIpMRhVqYOmIU0mBljQa2072LW8uaiZaMG/e4ssQA2AIL05cLYD7A==", null, false, "8036d903-e805-4c1d-af8b-34285fb822b3", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "ClothingType",
@@ -340,7 +340,7 @@ namespace HandItDown.Migrations
             migrationBuilder.InsertData(
                 table: "Misc",
                 columns: new[] { "MiscId", "Color", "Description", "ImagePath", "Quantity", "StatusId", "UserId" },
-                values: new object[] { 1, null, "", null, 1, 1, "49701908-4d23-499c-ae1a-e0b2fca303a0" });
+                values: new object[] { 1, null, "", null, 1, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" });
 
             migrationBuilder.InsertData(
                 table: "Statuses",
@@ -367,9 +367,9 @@ namespace HandItDown.Migrations
                 columns: new[] { "BookId", "Author", "Quantity", "StatusId", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Tag", 1, 1, "Me", "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                    { 2, "Tag", 1, 1, "Me", "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                    { 3, "Tag", 2, 1, "Me", "49701908-4d23-499c-ae1a-e0b2fca303a0" }
+                    { 1, "Tag", 1, 1, "Me", "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 2, "Tag", 1, 1, "Me", "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 3, "Tag", 2, 1, "Me", "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
                 });
 
             migrationBuilder.InsertData(
@@ -377,9 +377,9 @@ namespace HandItDown.Migrations
                 columns: new[] { "ClothingId", "ClothingTypeId", "Color", "Description", "ImagePath", "Quantity", "Size", "StatusId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 1, 0, "", null, 50, 0, 1, "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                    { 2, 1, 0, "", null, 50, 0, 1, "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                    { 3, 2, 0, "", null, 50, 0, 1, "49701908-4d23-499c-ae1a-e0b2fca303a0" }
+                    { 1, 1, 0, "", null, 50, 0, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 2, 1, 0, "", null, 50, 0, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 3, 2, 0, "", null, 50, 0, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
                 });
 
             migrationBuilder.InsertData(
@@ -387,9 +387,9 @@ namespace HandItDown.Migrations
                 columns: new[] { "ToyId", "Color", "Description", "ImagePath", "Quantity", "StatusId", "ToyTypeId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, null, "", null, 1, 1, 1, "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                    { 3, null, "", null, 1, 1, 2, "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                    { 2, null, "", null, 1, 1, 3, "49701908-4d23-499c-ae1a-e0b2fca303a0" }
+                    { 1, null, "", null, 1, 1, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 3, null, "", null, 1, 1, 2, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 2, null, "", null, 1, 1, 3, "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
                 });
 
             migrationBuilder.CreateIndex(

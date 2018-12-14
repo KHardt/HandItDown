@@ -20,8 +20,11 @@ namespace HandItDown.Models
       
 
         // Set up PK -> FK relationships to other objects
-         public virtual ICollection<Clothing> Items { get; set; }
+         public virtual ICollection<Clothing> Clothing { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
+        public virtual ICollection<Toy> Toys { get; set; }
 
-      
+
+
     }
 }

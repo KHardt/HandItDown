@@ -76,7 +76,7 @@ namespace HandItDown.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "49701908-4d23-499c-ae1a-e0b2fca303a0", AccessFailedCount = 0, ConcurrencyStamp = "423d3e92-61d7-4a16-9ca8-9f1e833ad8e7", Email = "admin@admin.com", EmailConfirmed = true, FirstName = "admin", LastName = "admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEL4a2PwhNNcVjYP2PHXC9u8XSufjRfqwrPtSrEGVsW11arbdHtY2j3zxJBt2w3DI7g==", PhoneNumberConfirmed = false, SecurityStamp = "bc6f26fe-4067-49bb-a048-d9c6411749dc", TwoFactorEnabled = false, UserName = "admin@admin.com" }
+                        new { Id = "9d8485ef-3b49-4ba9-884e-ef661934ac03", AccessFailedCount = 0, ConcurrencyStamp = "fde1eb53-9e80-4add-90ef-d7e661c3181e", Email = "admin@admin.com", EmailConfirmed = true, FirstName = "admin", LastName = "admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEAN+Cb7COHcu6WIpMRhVqYOmIU0mBljQa2072LW8uaiZaMG/e4ssQA2AIL05cLYD7A==", PhoneNumberConfirmed = false, SecurityStamp = "8036d903-e805-4c1d-af8b-34285fb822b3", TwoFactorEnabled = false, UserName = "admin@admin.com" }
                     );
                 });
 
@@ -108,9 +108,9 @@ namespace HandItDown.Migrations
                     b.ToTable("Book");
 
                     b.HasData(
-                        new { BookId = 1, Author = "Tag", Quantity = 1, StatusId = 1, Title = "Me", UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                        new { BookId = 2, Author = "Tag", Quantity = 1, StatusId = 1, Title = "Me", UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                        new { BookId = 3, Author = "Tag", Quantity = 2, StatusId = 1, Title = "Me", UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" }
+                        new { BookId = 1, Author = "Tag", Quantity = 1, StatusId = 1, Title = "Me", UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                        new { BookId = 2, Author = "Tag", Quantity = 1, StatusId = 1, Title = "Me", UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                        new { BookId = 3, Author = "Tag", Quantity = 2, StatusId = 1, Title = "Me", UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
                     );
                 });
 
@@ -150,9 +150,9 @@ namespace HandItDown.Migrations
                     b.ToTable("Clothing");
 
                     b.HasData(
-                        new { ClothingId = 1, ClothingTypeId = 1, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                        new { ClothingId = 2, ClothingTypeId = 1, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                        new { ClothingId = 3, ClothingTypeId = 2, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" }
+                        new { ClothingId = 1, ClothingTypeId = 1, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                        new { ClothingId = 2, ClothingTypeId = 1, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                        new { ClothingId = 3, ClothingTypeId = 2, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
                     );
                 });
 
@@ -209,7 +209,7 @@ namespace HandItDown.Migrations
                     b.ToTable("Misc");
 
                     b.HasData(
-                        new { MiscId = 1, Description = "", Quantity = 1, StatusId = 1, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" }
+                        new { MiscId = 1, Description = "", Quantity = 1, StatusId = 1, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
                     );
                 });
 
@@ -267,9 +267,9 @@ namespace HandItDown.Migrations
                     b.ToTable("Toy");
 
                     b.HasData(
-                        new { ToyId = 1, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 1, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                        new { ToyId = 2, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 3, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
-                        new { ToyId = 3, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 2, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" }
+                        new { ToyId = 1, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 1, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                        new { ToyId = 2, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 3, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                        new { ToyId = 3, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 2, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
                     );
                 });
 
@@ -416,7 +416,7 @@ namespace HandItDown.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HandItDown.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Books")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -434,7 +434,7 @@ namespace HandItDown.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HandItDown.Models.ApplicationUser", "User")
-                        .WithMany("Items")
+                        .WithMany("Clothing")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -452,7 +452,7 @@ namespace HandItDown.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HandItDown.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Toys")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
