@@ -20,9 +20,7 @@ namespace HandItDown.Models
 
             [NotMapped]
             public int Quantity { get; set; }
-
-            [Required]
-            public string UserId { get; set; }
+        
 
             public virtual ICollection<Toy> Toys { get; set; }
         }

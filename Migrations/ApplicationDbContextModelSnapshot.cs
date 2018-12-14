@@ -76,19 +76,53 @@ namespace HandItDown.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "73ba0508-c699-48c6-9a57-c22c4e295aca", AccessFailedCount = 0, ConcurrencyStamp = "d0b73adb-86e1-49da-89ad-d6045a772c8b", Email = "admin@admin.com", EmailConfirmed = true, FirstName = "admin", LastName = "admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEJuMFJRVfcv2Rr1KH98xbSWVA9w85MTv1XnhMiUoznaX76HVDC0Vi5nJwTSRchaFZg==", PhoneNumberConfirmed = false, SecurityStamp = "64ef41d4-d7f9-42d9-acf6-9a5ff0b8c9fb", TwoFactorEnabled = false, UserName = "admin@admin.com" }
+                        new { Id = "49701908-4d23-499c-ae1a-e0b2fca303a0", AccessFailedCount = 0, ConcurrencyStamp = "423d3e92-61d7-4a16-9ca8-9f1e833ad8e7", Email = "admin@admin.com", EmailConfirmed = true, FirstName = "admin", LastName = "admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEL4a2PwhNNcVjYP2PHXC9u8XSufjRfqwrPtSrEGVsW11arbdHtY2j3zxJBt2w3DI7g==", PhoneNumberConfirmed = false, SecurityStamp = "bc6f26fe-4067-49bb-a048-d9c6411749dc", TwoFactorEnabled = false, UserName = "admin@admin.com" }
                     );
                 });
 
-            modelBuilder.Entity("HandItDown.Models.Item", b =>
+            modelBuilder.Entity("HandItDown.Models.Book", b =>
                 {
-                    b.Property<int>("ItemId")
+                    b.Property<int>("BookId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreated")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasDefaultValueSql("GETDATE()");
+                    b.Property<string>("Author")
+                        .IsRequired();
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<int>("StatusId");
+
+                    b.Property<string>("Title")
+                        .IsRequired();
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("BookId");
+
+                    b.HasIndex("StatusId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Book");
+
+                    b.HasData(
+                        new { BookId = 1, Author = "Tag", Quantity = 1, StatusId = 1, Title = "Me", UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
+                        new { BookId = 2, Author = "Tag", Quantity = 1, StatusId = 1, Title = "Me", UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
+                        new { BookId = 3, Author = "Tag", Quantity = 2, StatusId = 1, Title = "Me", UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" }
+                    );
+                });
+
+            modelBuilder.Entity("HandItDown.Models.Clothing", b =>
+                {
+                    b.Property<int>("ClothingId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClothingTypeId");
+
+                    b.Property<int>("Color");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -96,11 +130,72 @@ namespace HandItDown.Migrations
 
                     b.Property<string>("ImagePath");
 
-                    b.Property<int>("ItemTypeId");
+                    b.Property<int>("Quantity");
 
-                    b.Property<string>("Name")
+                    b.Property<int>("Size");
+
+                    b.Property<int>("StatusId");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("ClothingId");
+
+                    b.HasIndex("ClothingTypeId");
+
+                    b.HasIndex("StatusId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Clothing");
+
+                    b.HasData(
+                        new { ClothingId = 1, ClothingTypeId = 1, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
+                        new { ClothingId = 2, ClothingTypeId = 1, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
+                        new { ClothingId = 3, ClothingTypeId = 2, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" }
+                    );
+                });
+
+            modelBuilder.Entity("HandItDown.Models.ClothingType", b =>
+                {
+                    b.Property<int>("ClothingTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Label")
                         .IsRequired()
-                        .HasMaxLength(30);
+                        .HasMaxLength(255);
+
+                    b.HasKey("ClothingTypeId");
+
+                    b.ToTable("ClothingType");
+
+                    b.HasData(
+                        new { ClothingTypeId = 1, Label = "Shirts" },
+                        new { ClothingTypeId = 2, Label = "Pants" },
+                        new { ClothingTypeId = 3, Label = "Shorts" },
+                        new { ClothingTypeId = 4, Label = "Socks" },
+                        new { ClothingTypeId = 5, Label = "Sweaters" },
+                        new { ClothingTypeId = 6, Label = "Shoes" },
+                        new { ClothingTypeId = 7, Label = "Hats" },
+                        new { ClothingTypeId = 8, Label = "Jackets" },
+                        new { ClothingTypeId = 9, Label = "Misc" }
+                    );
+                });
+
+            modelBuilder.Entity("HandItDown.Models.Misc", b =>
+                {
+                    b.Property<int>("MiscId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Color");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("ImagePath");
 
                     b.Property<int>("Quantity");
 
@@ -109,42 +204,12 @@ namespace HandItDown.Migrations
                     b.Property<string>("UserId")
                         .IsRequired();
 
-                    b.HasKey("ItemId");
+                    b.HasKey("MiscId");
 
-                    b.HasIndex("ItemTypeId");
-
-                    b.HasIndex("StatusId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Items");
+                    b.ToTable("Misc");
 
                     b.HasData(
-                        new { ItemId = 1, DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Description = "goes vroom", ItemTypeId = 1, Name = "toy car", Quantity = 50, StatusId = 1, UserId = "73ba0508-c699-48c6-9a57-c22c4e295aca" },
-                        new { ItemId = 2, DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Description = "goes vroom", ItemTypeId = 2, Name = "toy car", Quantity = 5, StatusId = 1, UserId = "73ba0508-c699-48c6-9a57-c22c4e295aca" },
-                        new { ItemId = 3, DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Description = "goes vroom", ItemTypeId = 3, Name = "toy car", Quantity = 10, StatusId = 1, UserId = "73ba0508-c699-48c6-9a57-c22c4e295aca" }
-                    );
-                });
-
-            modelBuilder.Entity("HandItDown.Models.ItemType", b =>
-                {
-                    b.Property<int>("ItemTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Label")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.HasKey("ItemTypeId");
-
-                    b.ToTable("ItemTypes");
-
-                    b.HasData(
-                        new { ItemTypeId = 1, Label = "Toys" },
-                        new { ItemTypeId = 2, Label = "Books" },
-                        new { ItemTypeId = 3, Label = "Clothes" },
-                        new { ItemTypeId = 4, Label = "Misc" }
+                        new { MiscId = 1, Description = "", Quantity = 1, StatusId = 1, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" }
                     );
                 });
 
@@ -165,6 +230,67 @@ namespace HandItDown.Migrations
                         new { StatusId = 1, Label = "Has" },
                         new { StatusId = 2, Label = "Needs" },
                         new { StatusId = 3, Label = "Donatable" }
+                    );
+                });
+
+            modelBuilder.Entity("HandItDown.Models.Toy", b =>
+                {
+                    b.Property<int>("ToyId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Color");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("ImagePath");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<int>("StatusId");
+
+                    b.Property<int>("ToyTypeId");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("ToyId");
+
+                    b.HasIndex("StatusId");
+
+                    b.HasIndex("ToyTypeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Toy");
+
+                    b.HasData(
+                        new { ToyId = 1, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 1, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
+                        new { ToyId = 2, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 3, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" },
+                        new { ToyId = 3, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 2, UserId = "49701908-4d23-499c-ae1a-e0b2fca303a0" }
+                    );
+                });
+
+            modelBuilder.Entity("HandItDown.Models.ToyType", b =>
+                {
+                    b.Property<int>("ToyTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("ToyTypeId");
+
+                    b.ToTable("ToyType");
+
+                    b.HasData(
+                        new { ToyTypeId = 1, Label = "Cars and Trucks" },
+                        new { ToyTypeId = 2, Label = "Games and Puzzles" },
+                        new { ToyTypeId = 3, Label = "Slides and outdoor things" }
                     );
                 });
 
@@ -282,20 +408,51 @@ namespace HandItDown.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("HandItDown.Models.Item", b =>
+            modelBuilder.Entity("HandItDown.Models.Book", b =>
                 {
-                    b.HasOne("HandItDown.Models.ItemType", "ItemType")
-                        .WithMany("Items")
-                        .HasForeignKey("ItemTypeId")
+                    b.HasOne("HandItDown.Models.Status", "Status")
+                        .WithMany("Books")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("HandItDown.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HandItDown.Models.Clothing", b =>
+                {
+                    b.HasOne("HandItDown.Models.ClothingType", "ClothingType")
+                        .WithMany("Clothing")
+                        .HasForeignKey("ClothingTypeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HandItDown.Models.Status", "Status")
-                        .WithMany("Items")
+                        .WithMany("Clothing")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HandItDown.Models.ApplicationUser", "User")
                         .WithMany("Items")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HandItDown.Models.Toy", b =>
+                {
+                    b.HasOne("HandItDown.Models.Status", "Status")
+                        .WithMany("Toys")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("HandItDown.Models.ToyType", "ToyType")
+                        .WithMany("Toys")
+                        .HasForeignKey("ToyTypeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("HandItDown.Models.ApplicationUser", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

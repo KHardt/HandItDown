@@ -15,6 +15,7 @@ namespace HandItDown.Data
         public DbSet<Clothing> Clothing { get; set; }
         public DbSet<ClothingType> ClothingType { get; set; }
         public DbSet<Toy> Toy { get; set; }
+        public DbSet<Misc> Misc { get; set; }
         public DbSet<ToyType> ToyType { get; set; }
         public DbSet<Book> Book { get; set; }
         public DbSet<Status> Statuses { get; set; }
@@ -100,22 +101,22 @@ namespace HandItDown.Data
                   },
                    new ClothingType()
                    {
-                       ClothingTypeId = 3,
+                       ClothingTypeId = 6,
                        Label = "Shoes"
                    },
                     new ClothingType()
                     {
-                        ClothingTypeId = 3,
+                        ClothingTypeId = 7,
                         Label = "Hats"
                     },
                      new ClothingType()
                      {
-                         ClothingTypeId = 3,
+                         ClothingTypeId = 8,
                          Label = "Jackets"
                      },
                     new ClothingType()
                     {
-                        ClothingTypeId = 6,
+                        ClothingTypeId = 9,
                         Label = "Misc"
                     }
                  );
@@ -267,6 +268,20 @@ namespace HandItDown.Data
               }
 
               );
+
+
+
+            modelBuilder.Entity<Misc>().HasData(
+            new Misc()
+            {
+                MiscId = 1,
+                UserId = user.Id,
+                Quantity = 1,
+                Description = "",
+                StatusId = 1,
+
+            }
+            );
 
 
         }
