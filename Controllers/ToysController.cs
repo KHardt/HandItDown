@@ -75,8 +75,15 @@ namespace HandItDown.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ToyId,Description,Quantity,Color,UserId,ImagePath,StatusId,ToyTypeId")] Toy toy)
         {
+            ModelState.Remove("User");
+            ModelState.Remove("UserId");
+
             if (ModelState.IsValid)
             {
+                var user = await GetCurrentUserAsync();
+                toy.User = user;
+                toy.UserId = user.Id;
+
                 _context.Add(toy);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

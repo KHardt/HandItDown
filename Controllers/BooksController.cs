@@ -9,6 +9,7 @@ using HandItDown.Data;
 using HandItDown.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HandItDown.Controllers
 {
@@ -63,7 +64,8 @@ namespace HandItDown.Controllers
 
         // GET: Books/Create
         public IActionResult Create()
-        {
+        { 
+
             ViewData["StatusId"] = new SelectList(_context.Statuses, "StatusId", "Label");
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
             return View();
@@ -76,8 +78,16 @@ namespace HandItDown.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookId,Title,Author,Quantity,UserId,StatusId")] Book book)
         {
+            ModelState.Remove("User");
+            ModelState.Remove("UserId");
+
+
             if (ModelState.IsValid)
             {
+                var user = await GetCurrentUserAsync();
+                book.User = user;
+                book.UserId = user.Id;
+
                 _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
