@@ -24,6 +24,8 @@ namespace HandItDown.Models
 
         public string Color { get; set; }
 
+        [Required]
+        public ApplicationUser User { get; set; }
 
         [Required]
         public string UserId { get; set; }

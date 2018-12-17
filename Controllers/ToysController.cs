@@ -7,22 +7,34 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HandItDown.Data;
 using HandItDown.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace HandItDown.Controllers
 {
+    [Authorize]
     public class ToysController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ToysController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public ToysController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
 
         // GET: Toys
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Toy.Include(t => t.Status).Include(t => t.ToyType).Include(t => t.User);
+            var user = await GetCurrentUserAsync();
+            var applicationDbContext = _context.Toy
+                .Include(t => t.User)
+                .Include(t => t.ToyType)
+                .Where(t => t.UserId == user.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 

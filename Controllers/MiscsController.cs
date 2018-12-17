@@ -7,22 +7,36 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HandItDown.Data;
 using HandItDown.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace HandItDown.Controllers
 {
+    [Authorize]
     public class MiscsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public MiscsController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public MiscsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
 
         // GET: Miscs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Misc.ToListAsync());
+            var user = await GetCurrentUserAsync();
+
+            var applicationDbContext = _context.Misc
+                .Include(c => c.User)
+                .Where(t => t.UserId == user.Id);
+
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Miscs/Details/5
