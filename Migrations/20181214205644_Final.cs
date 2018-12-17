@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HandItDown.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class Final : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,16 +50,60 @@ namespace HandItDown.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Detail",
+                name: "ClothingType",
                 columns: table => new
                 {
-                    DetailId = table.Column<int>(nullable: false)
+                    ClothingTypeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Label = table.Column<string>(maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Detail", x => x.DetailId);
+                    table.PrimaryKey("PK_ClothingType", x => x.ClothingTypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Misc",
+                columns: table => new
+                {
+                    MiscId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(maxLength: 255, nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    Color = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true),
+                    StatusId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Misc", x => x.MiscId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Statuses",
+                columns: table => new
+                {
+                    StatusId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Label = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Statuses", x => x.StatusId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ToyType",
+                columns: table => new
+                {
+                    ToyTypeId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Label = table.Column<string>(maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ToyType", x => x.ToyTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,56 +213,28 @@ namespace HandItDown.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Items",
+                name: "Book",
                 columns: table => new
                 {
-                    ItemId = table.Column<int>(nullable: false)
+                    BookId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "GETDATE()"),
-                    Description = table.Column<string>(maxLength: 255, nullable: false),
-                    Name = table.Column<string>(maxLength: 55, nullable: false),
+                    Title = table.Column<string>(nullable: false),
+                    Author = table.Column<string>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    ImagePath = table.Column<string>(nullable: true)
+                    StatusId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.ItemId);
+                    table.PrimaryKey("PK_Book", x => x.BookId);
                     table.ForeignKey(
-                        name: "FK_Items_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WishLists",
-                columns: table => new
-                {
-                    WishListId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "GETDATE()"),
-                    Description = table.Column<string>(maxLength: 255, nullable: false),
-                    Name = table.Column<string>(maxLength: 55, nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false),
-                    City = table.Column<string>(nullable: true),
-                    ImagePath = table.Column<string>(nullable: true),
-                    AttributeId = table.Column<int>(nullable: false),
-                    DetailsDetailId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WishLists", x => x.WishListId);
-                    table.ForeignKey(
-                        name: "FK_WishLists_Detail_DetailsDetailId",
-                        column: x => x.DetailsDetailId,
-                        principalTable: "Detail",
-                        principalColumn: "DetailId",
+                        name: "FK_Book_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "StatusId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_WishLists_AspNetUsers_UserId",
+                        name: "FK_Book_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -226,80 +242,155 @@ namespace HandItDown.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ItemDetails",
+                name: "Clothing",
                 columns: table => new
                 {
-                    ItemDetailId = table.Column<int>(nullable: false)
+                    ClothingId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ItemId = table.Column<int>(nullable: false),
-                    DetailId = table.Column<int>(nullable: false)
+                    Description = table.Column<string>(maxLength: 255, nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    Size = table.Column<int>(nullable: false),
+                    Color = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true),
+                    StatusId = table.Column<int>(nullable: false),
+                    ClothingTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ItemDetails", x => x.ItemDetailId);
+                    table.PrimaryKey("PK_Clothing", x => x.ClothingId);
                     table.ForeignKey(
-                        name: "FK_ItemDetails_Detail_DetailId",
-                        column: x => x.DetailId,
-                        principalTable: "Detail",
-                        principalColumn: "DetailId",
+                        name: "FK_Clothing_ClothingType_ClothingTypeId",
+                        column: x => x.ClothingTypeId,
+                        principalTable: "ClothingType",
+                        principalColumn: "ClothingTypeId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Clothing_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "StatusId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Clothing_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Toy",
+                columns: table => new
+                {
+                    ToyId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(maxLength: 255, nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    Color = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true),
+                    StatusId = table.Column<int>(nullable: false),
+                    ToyTypeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Toy", x => x.ToyId);
                     table.ForeignKey(
-                        name: "FK_ItemDetails_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "ItemId",
+                        name: "FK_Toy_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "StatusId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Toy_ToyType_ToyTypeId",
+                        column: x => x.ToyTypeId,
+                        principalTable: "ToyType",
+                        principalColumn: "ToyTypeId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Toy_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "894faf1f-a51b-417d-a18e-0121cd6c2462", 0, "f7c5b408-9f2d-4d66-a45c-864f064fff82", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEGzAmTDOzM0IrlmM/Z7C/U6vX9xJWKysFhc/5svtze58UGkgFWh4B8Vur94SRbu5VQ==", null, false, "d02855e7-2540-41b3-a12d-5dd0e2ec701c", false, "admin@admin.com" });
+                values: new object[] { "9d8485ef-3b49-4ba9-884e-ef661934ac03", 0, "fde1eb53-9e80-4add-90ef-d7e661c3181e", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEAN+Cb7COHcu6WIpMRhVqYOmIU0mBljQa2072LW8uaiZaMG/e4ssQA2AIL05cLYD7A==", null, false, "8036d903-e805-4c1d-af8b-34285fb822b3", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
-                table: "Detail",
-                columns: new[] { "DetailId", "Label" },
+                table: "ClothingType",
+                columns: new[] { "ClothingTypeId", "Label" },
                 values: new object[,]
                 {
-                    { 1, "Book" },
-                    { 2, "MatchBoxCar" },
-                    { 3, "Clothing" }
+                    { 9, "Misc" },
+                    { 7, "Hats" },
+                    { 6, "Shoes" },
+                    { 5, "Sweaters" },
+                    { 8, "Jackets" },
+                    { 3, "Shorts" },
+                    { 2, "Pants" },
+                    { 1, "Shirts" },
+                    { 4, "Socks" }
                 });
 
             migrationBuilder.InsertData(
-                table: "Items",
-                columns: new[] { "ItemId", "DateCreated", "Description", "ImagePath", "Name", "Quantity", "UserId" },
+                table: "Misc",
+                columns: new[] { "MiscId", "Color", "Description", "ImagePath", "Quantity", "StatusId", "UserId" },
+                values: new object[] { 1, null, "", null, 1, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" });
+
+            migrationBuilder.InsertData(
+                table: "Statuses",
+                columns: new[] { "StatusId", "Label" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "goes vroom", null, "toy car", 50, "894faf1f-a51b-417d-a18e-0121cd6c2462" },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "goes vroom", null, "toy car", 5, "894faf1f-a51b-417d-a18e-0121cd6c2462" },
-                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "goes vroom", null, "toy car", 10, "894faf1f-a51b-417d-a18e-0121cd6c2462" }
+                    { 1, "Has" },
+                    { 2, "Needs" },
+                    { 3, "Donatable" }
                 });
 
             migrationBuilder.InsertData(
-                table: "WishLists",
-                columns: new[] { "WishListId", "AttributeId", "City", "DateCreated", "Description", "DetailsDetailId", "ImagePath", "Name", "Quantity", "UserId" },
+                table: "ToyType",
+                columns: new[] { "ToyTypeId", "Label" },
                 values: new object[,]
                 {
-                    { 1, 0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "goes vroom", null, null, "toy car", 10, "894faf1f-a51b-417d-a18e-0121cd6c2462" },
-                    { 2, 0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "goes vroom", null, null, "toy car", 10, "894faf1f-a51b-417d-a18e-0121cd6c2462" },
-                    { 3, 0, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "goes vroom", null, null, "Clothes", 2, "894faf1f-a51b-417d-a18e-0121cd6c2462" }
+                    { 2, "Games and Puzzles" },
+                    { 1, "Cars and Trucks" },
+                    { 3, "Slides and outdoor things" }
                 });
 
             migrationBuilder.InsertData(
-                table: "ItemDetails",
-                columns: new[] { "ItemDetailId", "DetailId", "ItemId" },
-                values: new object[] { 1, 1, 1 });
+                table: "Book",
+                columns: new[] { "BookId", "Author", "Quantity", "StatusId", "Title", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "Tag", 1, 1, "Me", "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 2, "Tag", 1, 1, "Me", "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 3, "Tag", 2, 1, "Me", "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
+                });
 
             migrationBuilder.InsertData(
-                table: "ItemDetails",
-                columns: new[] { "ItemDetailId", "DetailId", "ItemId" },
-                values: new object[] { 2, 2, 1 });
+                table: "Clothing",
+                columns: new[] { "ClothingId", "ClothingTypeId", "Color", "Description", "ImagePath", "Quantity", "Size", "StatusId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, 0, "", null, 50, 0, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 2, 1, 0, "", null, 50, 0, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 3, 2, 0, "", null, 50, 0, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
+                });
 
             migrationBuilder.InsertData(
-                table: "ItemDetails",
-                columns: new[] { "ItemDetailId", "DetailId", "ItemId" },
-                values: new object[] { 3, 3, 1 });
+                table: "Toy",
+                columns: new[] { "ToyId", "Color", "Description", "ImagePath", "Quantity", "StatusId", "ToyTypeId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, null, "", null, 1, 1, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 3, null, "", null, 1, 1, 2, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
+                    { 2, null, "", null, 1, 1, 3, "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -341,28 +432,43 @@ namespace HandItDown.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemDetails_DetailId",
-                table: "ItemDetails",
-                column: "DetailId");
+                name: "IX_Book_StatusId",
+                table: "Book",
+                column: "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemDetails_ItemId",
-                table: "ItemDetails",
-                column: "ItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Items_UserId",
-                table: "Items",
+                name: "IX_Book_UserId",
+                table: "Book",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WishLists_DetailsDetailId",
-                table: "WishLists",
-                column: "DetailsDetailId");
+                name: "IX_Clothing_ClothingTypeId",
+                table: "Clothing",
+                column: "ClothingTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WishLists_UserId",
-                table: "WishLists",
+                name: "IX_Clothing_StatusId",
+                table: "Clothing",
+                column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clothing_UserId",
+                table: "Clothing",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Toy_StatusId",
+                table: "Toy",
+                column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Toy_ToyTypeId",
+                table: "Toy",
+                column: "ToyTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Toy_UserId",
+                table: "Toy",
                 column: "UserId");
         }
 
@@ -384,19 +490,28 @@ namespace HandItDown.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ItemDetails");
+                name: "Book");
 
             migrationBuilder.DropTable(
-                name: "WishLists");
+                name: "Clothing");
+
+            migrationBuilder.DropTable(
+                name: "Misc");
+
+            migrationBuilder.DropTable(
+                name: "Toy");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Items");
+                name: "ClothingType");
 
             migrationBuilder.DropTable(
-                name: "Detail");
+                name: "Statuses");
+
+            migrationBuilder.DropTable(
+                name: "ToyType");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

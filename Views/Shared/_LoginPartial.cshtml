@@ -8,13 +8,32 @@
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
+                <a asp-area="" asp-controller="Books" asp-action="Index">Books</a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Toys" asp-action="Index">Toys</a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Clothings" asp-action="Index">Clothing</a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Miscs" asp-action="Index">Misc</a>
+            </li>
+            <li>
                 <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
             </li>
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
             </li>
+
         </ul>
     </form>
+
+    <ul>
+        <form asp-controller="Jobs" asp-action="SearchResults" method="get" class="nav-search">
+            <input type="text" name="search" class="input-sm" placeholder="Search for a Position" />
+        </form>
+    </ul>
 }
 else
 {
