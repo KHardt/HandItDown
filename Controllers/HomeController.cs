@@ -6,40 +6,43 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HandItDown.Models;
 using Microsoft.AspNetCore.Authorization;
+using HandItDown.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace HandItDown.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
-    {
-        public IActionResult Index()
+
+
+        public class HomeController : Controller
         {
-            return View();
-        }
+            public IActionResult Index()
+            {
+                return View();
+            }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
+            public IActionResult About()
+            {
+                ViewData["Message"] = "Your application description page.";
 
-            return View();
-        }
+                return View();
+            }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
+            public IActionResult Contact()
+            {
+                ViewData["Message"] = "Your contact page.";
 
-            return View();
-        }
+                return View();
+            }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+            public IActionResult Privacy()
+            {
+                return View();
+            }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+            public IActionResult Error()
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
         }
     }
-}

@@ -7,27 +7,42 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HandItDown.Data;
 using HandItDown.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HandItDown.Controllers
 {
+    [Authorize]
     public class BooksController : Controller
     {
+      
         private readonly ApplicationDbContext _context;
 
-        public BooksController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public BooksController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+
         {
+            _userManager = userManager;
             _context = context;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Book.Include(b => b.Status).Include(b => b.User);
-            return View(await applicationDbContext.ToListAsync());
-        }
+            var user = await GetCurrentUserAsync();
 
-        // GET: Books/Details/5
-        public async Task<IActionResult> Details(int? id)
+            var applicationDbContext = _context.Book
+                .Include(b => b.User)
+                .Where(t => t.UserId == user.Id);
+
+            return View(await applicationDbContext.ToListAsync());
+
+        }
+            // GET: Books/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
