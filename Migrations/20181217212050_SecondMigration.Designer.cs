@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HandItDown.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181214205644_Final")]
-    partial class Final
+    [Migration("20181217212050_SecondMigration")]
+    partial class SecondMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,7 +78,7 @@ namespace HandItDown.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "9d8485ef-3b49-4ba9-884e-ef661934ac03", AccessFailedCount = 0, ConcurrencyStamp = "fde1eb53-9e80-4add-90ef-d7e661c3181e", Email = "admin@admin.com", EmailConfirmed = true, FirstName = "admin", LastName = "admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEAN+Cb7COHcu6WIpMRhVqYOmIU0mBljQa2072LW8uaiZaMG/e4ssQA2AIL05cLYD7A==", PhoneNumberConfirmed = false, SecurityStamp = "8036d903-e805-4c1d-af8b-34285fb822b3", TwoFactorEnabled = false, UserName = "admin@admin.com" }
+                        new { Id = "97593862-c5d4-4fd7-836e-5b49d043e8b0", AccessFailedCount = 0, ConcurrencyStamp = "bae583c9-5426-40fc-835e-dae4c063f960", Email = "admin@admin.com", EmailConfirmed = true, FirstName = "admin", LastName = "admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@ADMIN.COM", NormalizedUserName = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEEO6PDXVahjUw4LQ4t9KHg0H/8m/WnH6LLI+m5gHxl5RtYWMiF5mE5EIHoI7mAMgEA==", PhoneNumberConfirmed = false, SecurityStamp = "82c9aabc-10da-4169-94cd-3e44b9f57afc", TwoFactorEnabled = false, UserName = "admin@admin.com" }
                     );
                 });
 
@@ -110,9 +110,9 @@ namespace HandItDown.Migrations
                     b.ToTable("Book");
 
                     b.HasData(
-                        new { BookId = 1, Author = "Tag", Quantity = 1, StatusId = 1, Title = "Me", UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                        new { BookId = 2, Author = "Tag", Quantity = 1, StatusId = 1, Title = "Me", UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                        new { BookId = 3, Author = "Tag", Quantity = 2, StatusId = 1, Title = "Me", UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
+                        new { BookId = 1, Author = "Tag", Quantity = 1, StatusId = 1, Title = "Me", UserId = "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                        new { BookId = 2, Author = "Tag", Quantity = 1, StatusId = 1, Title = "Me", UserId = "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                        new { BookId = 3, Author = "Tag", Quantity = 2, StatusId = 1, Title = "Me", UserId = "97593862-c5d4-4fd7-836e-5b49d043e8b0" }
                     );
                 });
 
@@ -124,7 +124,8 @@ namespace HandItDown.Migrations
 
                     b.Property<int>("ClothingTypeId");
 
-                    b.Property<int>("Color");
+                    b.Property<string>("Color")
+                        .IsRequired();
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -134,7 +135,8 @@ namespace HandItDown.Migrations
 
                     b.Property<int>("Quantity");
 
-                    b.Property<int>("Size");
+                    b.Property<string>("Size")
+                        .IsRequired();
 
                     b.Property<int>("StatusId");
 
@@ -152,9 +154,9 @@ namespace HandItDown.Migrations
                     b.ToTable("Clothing");
 
                     b.HasData(
-                        new { ClothingId = 1, ClothingTypeId = 1, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                        new { ClothingId = 2, ClothingTypeId = 1, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                        new { ClothingId = 3, ClothingTypeId = 2, Color = 0, Description = "", Quantity = 50, Size = 0, StatusId = 1, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
+                        new { ClothingId = 1, ClothingTypeId = 1, Color = "red", Description = "", Quantity = 50, Size = "24month", StatusId = 1, UserId = "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                        new { ClothingId = 2, ClothingTypeId = 1, Color = "green", Description = "", Quantity = 50, Size = "6monthes", StatusId = 1, UserId = "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                        new { ClothingId = 3, ClothingTypeId = 2, Color = "", Description = "", Quantity = 50, Size = "", StatusId = 1, UserId = "97593862-c5d4-4fd7-836e-5b49d043e8b0" }
                     );
                 });
 
@@ -208,10 +210,14 @@ namespace HandItDown.Migrations
 
                     b.HasKey("MiscId");
 
+                    b.HasIndex("StatusId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("Misc");
 
                     b.HasData(
-                        new { MiscId = 1, Description = "", Quantity = 1, StatusId = 1, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
+                        new { MiscId = 1, Description = "", Quantity = 1, StatusId = 1, UserId = "97593862-c5d4-4fd7-836e-5b49d043e8b0" }
                     );
                 });
 
@@ -269,9 +275,9 @@ namespace HandItDown.Migrations
                     b.ToTable("Toy");
 
                     b.HasData(
-                        new { ToyId = 1, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 1, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                        new { ToyId = 2, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 3, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                        new { ToyId = 3, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 2, UserId = "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
+                        new { ToyId = 1, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 1, UserId = "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                        new { ToyId = 2, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 3, UserId = "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                        new { ToyId = 3, Description = "", Quantity = 1, StatusId = 1, ToyTypeId = 2, UserId = "97593862-c5d4-4fd7-836e-5b49d043e8b0" }
                     );
                 });
 
@@ -437,6 +443,19 @@ namespace HandItDown.Migrations
 
                     b.HasOne("HandItDown.Models.ApplicationUser", "User")
                         .WithMany("Clothing")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HandItDown.Models.Misc", b =>
+                {
+                    b.HasOne("HandItDown.Models.Status", "Status")
+                        .WithMany("Miscs")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("HandItDown.Models.ApplicationUser", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -34,5 +34,7 @@ namespace HandItDown.Models
 
         [Required]
         public int StatusId { get; set; }
+
+        public Status Status { get; set; }
     }
 }

@@ -24,11 +24,11 @@ namespace HandItDown.Models
 
 
         [Required]
-        public int Size { get; set; }
+        public string Size { get; set; }
 
 
         [Required]
-        public int Color { get; set; }
+        public string Color { get; set; }
 
 
         [Required]
