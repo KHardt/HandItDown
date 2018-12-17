@@ -168,7 +168,9 @@ namespace HandItDown.Data
                   ClothingId = 1,
                   UserId = user.Id,
                   Description = "",
+                  Size = "24month",
                   Quantity = 50,
+                  Color = "red",
                   ClothingTypeId = 1,
                   StatusId = 1,
 
@@ -179,6 +181,8 @@ namespace HandItDown.Data
                    UserId = user.Id,
                    Description = "",
                    Quantity = 50,
+                   Size = "6monthes",
+                   Color = "green",
                    ClothingTypeId = 1,
                    StatusId = 1,
 
@@ -188,6 +192,8 @@ namespace HandItDown.Data
                     ClothingId = 3,
                     UserId = user.Id,
                     Description = "",
+                    Color = "",
+                    Size = "",
                     Quantity = 50,
                     ClothingTypeId = 2,
                     StatusId = 1,

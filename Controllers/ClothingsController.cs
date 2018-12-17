@@ -34,6 +34,7 @@ namespace HandItDown.Controllers
 
             var applicationDbContext = _context.Clothing
                 .Include(c => c.User)
+                .Include(t => t.ClothingType)
                 .Where(t => t.UserId == user.Id);
 
             return View(await applicationDbContext.ToListAsync());

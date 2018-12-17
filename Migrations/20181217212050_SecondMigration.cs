@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HandItDown.Migrations
 {
-    public partial class Final : Migration
+    public partial class SecondMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,24 +60,6 @@ namespace HandItDown.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ClothingType", x => x.ClothingTypeId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Misc",
-                columns: table => new
-                {
-                    MiscId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(maxLength: 255, nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    Color = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false),
-                    ImagePath = table.Column<string>(nullable: true),
-                    StatusId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Misc", x => x.MiscId);
                 });
 
             migrationBuilder.CreateTable(
@@ -249,8 +231,8 @@ namespace HandItDown.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(maxLength: 255, nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Size = table.Column<int>(nullable: false),
-                    Color = table.Column<int>(nullable: false),
+                    Size = table.Column<string>(nullable: false),
+                    Color = table.Column<string>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
                     ImagePath = table.Column<string>(nullable: true),
                     StatusId = table.Column<int>(nullable: false),
@@ -273,6 +255,36 @@ namespace HandItDown.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Clothing_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Misc",
+                columns: table => new
+                {
+                    MiscId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(maxLength: 255, nullable: false),
+                    Quantity = table.Column<int>(nullable: false),
+                    Color = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true),
+                    StatusId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Misc", x => x.MiscId);
+                    table.ForeignKey(
+                        name: "FK_Misc_Statuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "Statuses",
+                        principalColumn: "StatusId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Misc_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -319,28 +331,23 @@ namespace HandItDown.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "9d8485ef-3b49-4ba9-884e-ef661934ac03", 0, "fde1eb53-9e80-4add-90ef-d7e661c3181e", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEAN+Cb7COHcu6WIpMRhVqYOmIU0mBljQa2072LW8uaiZaMG/e4ssQA2AIL05cLYD7A==", null, false, "8036d903-e805-4c1d-af8b-34285fb822b3", false, "admin@admin.com" });
+                values: new object[] { "97593862-c5d4-4fd7-836e-5b49d043e8b0", 0, "bae583c9-5426-40fc-835e-dae4c063f960", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEEO6PDXVahjUw4LQ4t9KHg0H/8m/WnH6LLI+m5gHxl5RtYWMiF5mE5EIHoI7mAMgEA==", null, false, "82c9aabc-10da-4169-94cd-3e44b9f57afc", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "ClothingType",
                 columns: new[] { "ClothingTypeId", "Label" },
                 values: new object[,]
                 {
-                    { 9, "Misc" },
-                    { 7, "Hats" },
-                    { 6, "Shoes" },
-                    { 5, "Sweaters" },
-                    { 8, "Jackets" },
-                    { 3, "Shorts" },
-                    { 2, "Pants" },
                     { 1, "Shirts" },
-                    { 4, "Socks" }
+                    { 2, "Pants" },
+                    { 3, "Shorts" },
+                    { 4, "Socks" },
+                    { 5, "Sweaters" },
+                    { 6, "Shoes" },
+                    { 7, "Hats" },
+                    { 8, "Jackets" },
+                    { 9, "Misc" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "Misc",
-                columns: new[] { "MiscId", "Color", "Description", "ImagePath", "Quantity", "StatusId", "UserId" },
-                values: new object[] { 1, null, "", null, 1, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" });
 
             migrationBuilder.InsertData(
                 table: "Statuses",
@@ -357,8 +364,8 @@ namespace HandItDown.Migrations
                 columns: new[] { "ToyTypeId", "Label" },
                 values: new object[,]
                 {
-                    { 2, "Games and Puzzles" },
                     { 1, "Cars and Trucks" },
+                    { 2, "Games and Puzzles" },
                     { 3, "Slides and outdoor things" }
                 });
 
@@ -367,9 +374,9 @@ namespace HandItDown.Migrations
                 columns: new[] { "BookId", "Author", "Quantity", "StatusId", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Tag", 1, 1, "Me", "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                    { 2, "Tag", 1, 1, "Me", "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                    { 3, "Tag", 2, 1, "Me", "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
+                    { 1, "Tag", 1, 1, "Me", "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                    { 2, "Tag", 1, 1, "Me", "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                    { 3, "Tag", 2, 1, "Me", "97593862-c5d4-4fd7-836e-5b49d043e8b0" }
                 });
 
             migrationBuilder.InsertData(
@@ -377,19 +384,24 @@ namespace HandItDown.Migrations
                 columns: new[] { "ClothingId", "ClothingTypeId", "Color", "Description", "ImagePath", "Quantity", "Size", "StatusId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 1, 0, "", null, 50, 0, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                    { 2, 1, 0, "", null, 50, 0, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                    { 3, 2, 0, "", null, 50, 0, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
+                    { 1, 1, "red", "", null, 50, "24month", 1, "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                    { 2, 1, "green", "", null, 50, "6monthes", 1, "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                    { 3, 2, "", "", null, 50, "", 1, "97593862-c5d4-4fd7-836e-5b49d043e8b0" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Misc",
+                columns: new[] { "MiscId", "Color", "Description", "ImagePath", "Quantity", "StatusId", "UserId" },
+                values: new object[] { 1, null, "", null, 1, 1, "97593862-c5d4-4fd7-836e-5b49d043e8b0" });
 
             migrationBuilder.InsertData(
                 table: "Toy",
                 columns: new[] { "ToyId", "Color", "Description", "ImagePath", "Quantity", "StatusId", "ToyTypeId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, null, "", null, 1, 1, 1, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                    { 3, null, "", null, 1, 1, 2, "9d8485ef-3b49-4ba9-884e-ef661934ac03" },
-                    { 2, null, "", null, 1, 1, 3, "9d8485ef-3b49-4ba9-884e-ef661934ac03" }
+                    { 1, null, "", null, 1, 1, 1, "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                    { 3, null, "", null, 1, 1, 2, "97593862-c5d4-4fd7-836e-5b49d043e8b0" },
+                    { 2, null, "", null, 1, 1, 3, "97593862-c5d4-4fd7-836e-5b49d043e8b0" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -454,6 +466,16 @@ namespace HandItDown.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Clothing_UserId",
                 table: "Clothing",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Misc_StatusId",
+                table: "Misc",
+                column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Misc_UserId",
+                table: "Misc",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(

@@ -60,6 +60,9 @@ namespace HandItDown.Controllers
         // GET: Miscs/Create
         public IActionResult Create()
         {
+
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "StatusId", "Label");
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
             return View();
         }
 
