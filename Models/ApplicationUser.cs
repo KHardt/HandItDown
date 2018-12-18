@@ -23,6 +23,7 @@ namespace HandItDown.Models
         public virtual ICollection<Clothing> Clothing { get; set; }
         public virtual ICollection<Book> Books { get; set; }
         public virtual ICollection<Toy> Toys { get; set; }
+        public virtual ICollection<Misc> Miscs { get; set; }
 
 
 

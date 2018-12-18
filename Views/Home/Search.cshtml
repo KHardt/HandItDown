@@ -1,0 +1,56 @@
+﻿@model HandItDown.Models.HomeViewModels.HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Search</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Toy.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Clothing.Description)
+            </th>
+            <th></th>
+        </tr>
+
+
+
+
+        </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Books) {
+        <tr>
+            <td>
+                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.BookId">@Html.DisplayFor(modelItem => item.Title)</a>
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            
+           
+        </tr>
+}
+    </tbody>
+</table>
