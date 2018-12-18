@@ -103,6 +103,8 @@ namespace HandItDown.Controllers
             {
                 return NotFound();
             }
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "StatusId", "Label", misc.StatusId);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", misc.UserId);
             return View(misc);
         }
 
@@ -145,6 +147,8 @@ namespace HandItDown.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "StatusId", "Label", misc.StatusId);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", misc.UserId);
             return View(misc);
         }
 
