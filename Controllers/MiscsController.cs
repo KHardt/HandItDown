@@ -34,6 +34,7 @@ namespace HandItDown.Controllers
 
             var applicationDbContext = _context.Misc
                 .Include(c => c.User)
+                .Include(s => s.Status)
                 .Where(t => t.UserId == user.Id);
 
             return View(await applicationDbContext.ToListAsync());
@@ -116,9 +117,16 @@ namespace HandItDown.Controllers
             {
                 return NotFound();
             }
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
 
             if (ModelState.IsValid)
             {
+
+                var user = await GetCurrentUserAsync();
+                misc.User = user;
+                misc.UserId = user.Id;
+
                 try
                 {
                     _context.Update(misc);

@@ -22,10 +22,10 @@
                 @Html.DisplayNameFor(model => model.Color)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
+                @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StatusId)
+                @Html.DisplayNameFor(model => model.ImagePath)
             </th>
             <th></th>
         </tr>
@@ -43,10 +43,10 @@
                 @Html.DisplayFor(modelItem => item.Color)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
+                @Html.DisplayFor(modelItem => item.Status.Label)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StatusId)
+                @Html.DisplayFor(modelItem => item.ImagePath)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.MiscId">Edit</a> |
