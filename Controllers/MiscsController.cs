@@ -34,6 +34,7 @@ namespace HandItDown.Controllers
 
             var applicationDbContext = _context.Misc
                 .Include(c => c.User)
+                .Include(s => s.Status)
                 .Where(t => t.UserId == user.Id);
 
             return View(await applicationDbContext.ToListAsync());
@@ -102,6 +103,8 @@ namespace HandItDown.Controllers
             {
                 return NotFound();
             }
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "StatusId", "Label", misc.StatusId);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", misc.UserId);
             return View(misc);
         }
 
@@ -116,9 +119,16 @@ namespace HandItDown.Controllers
             {
                 return NotFound();
             }
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
 
             if (ModelState.IsValid)
             {
+
+                var user = await GetCurrentUserAsync();
+                misc.User = user;
+                misc.UserId = user.Id;
+
                 try
                 {
                     _context.Update(misc);
@@ -137,6 +147,8 @@ namespace HandItDown.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "StatusId", "Label", misc.StatusId);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", misc.UserId);
             return View(misc);
         }
 
