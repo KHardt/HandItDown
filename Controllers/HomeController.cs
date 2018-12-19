@@ -33,7 +33,8 @@ namespace HandItDown.Controllers
         public IActionResult Search(string search)
         {
             List<Book> books = _context.Book //Gets all books from database 
-                                    .Where(b => b.Title.Contains(search)) //Filters the ones thats that contain what the search contains
+                                    .Where(b => b.Title.Contains(search) || b.Author.Contains(search))
+                                   //Filters the ones thats that contain what the search contains
                                     .OrderBy(p => p.Title) //Orders them in alphabetical order
                                     .ToList(); //Turns results into a list
             List<Toy> toys = _context.Toy //Gets all books from database 
@@ -41,7 +42,7 @@ namespace HandItDown.Controllers
                                    .OrderBy(p => p.ToyType) //Orders them in alphabetical order
                                    .ToList(); //Turns results into a list */
             List<Clothing> clothings = _context.Clothing //Gets all books from database 
-                                  .Where(b => b.Description.Contains(search)) //Filters the ones thats that contain what the search contains
+                                  .Where(p => p.Description.Contains(search))//Filters the ones thats that contain what the search contains
                                   .OrderBy(p => p.ClothingType) //Orders them in alphabetical order
                                   .ToList(); //Turns results into a list
                                     
@@ -50,12 +51,18 @@ namespace HandItDown.Controllers
                                   .OrderBy(p => p.Description) //Orders them in alphabetical order
                                   .ToList(); //Turns results into a li
 
+            List<ClothingType> clothingTypes = _context.ClothingType //Gets all books from database 
+                                 .Where(p => p.Label.Contains(search))//Filters the ones thats that contain what the search contains
+                                 .OrderBy(p => p.Label) //Orders them in alphabetical order
+                                 .ToList(); //Turns results into a list
+
             HomeIndexViewModel viewModel = new HomeIndexViewModel(); //Creates new view model
 
             viewModel.Books = books; //Attaches the searched products to the view model
             viewModel.Toys = toys;
             viewModel.Clothings = clothings;
             viewModel.Miscs = misc;
+            viewModel.ClothingTypes = clothingTypes;
 
 
             return View(viewModel); //Sends the view model to the view

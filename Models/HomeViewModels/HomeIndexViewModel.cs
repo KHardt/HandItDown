@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +19,16 @@ namespace HandItDown.Models.HomeViewModels
 
         public Misc Misc { get; set; }
         public List<Misc> Miscs { get; set; }
+
+        public ClothingType ClothingType { get; set; }
+        public List<ClothingType> ClothingTypes { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        [Display(Name = "Category:")]
+        public string Label { get; set; }
+
+  
 
     }
 }
