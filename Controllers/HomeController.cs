@@ -36,15 +36,27 @@ namespace HandItDown.Controllers
                                     .Where(b => b.Title.Contains(search)) //Filters the ones thats that contain what the search contains
                                     .OrderBy(p => p.Title) //Orders them in alphabetical order
                                     .ToList(); //Turns results into a list
-           /* List<Toy> toys = _context.Toy //Gets all books from database 
+            List<Toy> toys = _context.Toy //Gets all books from database 
                                    .Where(b => b.Description.Contains(search)) //Filters the ones thats that contain what the search contains
                                    .OrderBy(p => p.ToyType) //Orders them in alphabetical order
                                    .ToList(); //Turns results into a list */
+            List<Clothing> clothings = _context.Clothing //Gets all books from database 
+                                  .Where(b => b.Description.Contains(search)) //Filters the ones thats that contain what the search contains
+                                  .OrderBy(p => p.ClothingType) //Orders them in alphabetical order
+                                  .ToList(); //Turns results into a list
+                                    
+            List<Misc> misc = _context.Misc //Gets all books from database 
+                                  .Where(b => b.Description.Contains(search)) //Filters the ones thats that contain what the search contains
+                                  .OrderBy(p => p.Description) //Orders them in alphabetical order
+                                  .ToList(); //Turns results into a li
 
             HomeIndexViewModel viewModel = new HomeIndexViewModel(); //Creates new view model
 
             viewModel.Books = books; //Attaches the searched products to the view model
-           // viewModel.Toys = toys;
+            viewModel.Toys = toys;
+            viewModel.Clothings = clothings;
+            viewModel.Miscs = misc;
+
 
             return View(viewModel); //Sends the view model to the view
         }
