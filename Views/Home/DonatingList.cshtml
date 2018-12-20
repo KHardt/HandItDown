@@ -1,0 +1,74 @@
+﻿@model HandItDown.Models.HomeViewModels.HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Donating";
+}
+
+<h2>Donating</h2>
+
+
+<table class="table">
+    <thead>
+
+        <tr>
+            <th>
+                Donating Items:
+            </th>
+            <th>
+
+            </th>
+        </tr>
+
+    </thead>
+
+
+    <tbody>
+        @foreach (var item in Model.Books)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Books" asp-action="Details" asp-route-id="@item.BookId">@Html.DisplayFor(modelItem => item.Title)</a>
+                </td>
+
+            </tr>
+        }
+
+
+
+        @foreach (var item in Model.Toys)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Toys" asp-action="Details" asp-route-id="@item.ToyId">@Html.DisplayFor(modelItem => item.Description)</a>
+                </td>
+
+
+            </tr>
+        }
+
+        @foreach (var item in Model.Clothings)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Clothings" asp-action="Details" asp-route-id="@item.ClothingId">@Html.DisplayFor(modelItem => item.Description)</a>
+                </td>
+
+            </tr>
+        }
+
+
+        @foreach (var item in Model.Miscs)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Miscs" asp-action="Details" asp-route-id="@item.MiscId">@Html.DisplayFor(modelItem => item.Description)</a>
+                </td>
+
+
+            </tr>
+        }
+
+
+
+    </tbody>
+</table>
