@@ -29,6 +29,8 @@ namespace HandItDown.Controllers
             _context = context;
         }
 
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
         //GET: Products/?search="iPod"
         public IActionResult Search(string search)
         {
@@ -37,12 +39,12 @@ namespace HandItDown.Controllers
                                    //Filters the ones thats that contain what the search contains
                                     .OrderBy(p => p.Title) //Orders them in alphabetical order
                                     .ToList(); //Turns results into a list
-            List<Toy> toys = _context.Toy //Gets all books from database 
-                                   .Where(b => b.Description.Contains(search)) //Filters the ones thats that contain what the search contains
+            List<Toy> toys =  _context.Toy //Gets all books from database 
+                                   .Where(b => b.Description.Contains(search) || b.Color.Contains(search))//Filters the ones thats that contain what the search contains
                                    .OrderBy(p => p.ToyType) //Orders them in alphabetical order
                                    .ToList(); //Turns results into a list */
             List<Clothing> clothings = _context.Clothing //Gets all books from database 
-                                  .Where(p => p.Description.Contains(search))//Filters the ones thats that contain what the search contains
+                                  .Where(p => p.Description.Contains(search) || p.Color.Contains(search))//Filters the ones thats that contain what the search contains
                                   .OrderBy(p => p.ClothingType) //Orders them in alphabetical order
                                   .ToList(); //Turns results into a list
                                     
@@ -56,6 +58,11 @@ namespace HandItDown.Controllers
                                  .OrderBy(p => p.Label) //Orders them in alphabetical order
                                  .ToList(); //Turns results into a list
 
+            List<ToyType> ToyTypes = _context.ToyType //Gets all books from database 
+                                .Where(p => p.Label.Contains(search))//Filters the ones thats that contain what the search contains
+                                .OrderBy(p => p.Label) //Orders them in alphabetical order
+                                .ToList(); //Turns results into a list
+
             HomeIndexViewModel viewModel = new HomeIndexViewModel(); //Creates new view model
 
             viewModel.Books = books; //Attaches the searched products to the view model
@@ -63,10 +70,50 @@ namespace HandItDown.Controllers
             viewModel.Clothings = clothings;
             viewModel.Miscs = misc;
             viewModel.ClothingTypes = clothingTypes;
+            viewModel.ToyTypes= ToyTypes;
 
 
             return View(viewModel); //Sends the view model to the view
         }
+
+
+
+        public async Task<IActionResult> Wishlist()
+        {
+            List<Book> books =  await _context.Book //Gets all books from database 
+                                  //  .Include(b => b.Title)
+                                   .Where(b => b.StatusId == 2)
+                                   .ToListAsync(); //Turns results into a list
+            Console.WriteLine(books);
+            List<Toy> toys =  await _context.Toy //Gets all books from database      
+                                   .Where(b => b.StatusId ==2) //Filters the ones thats that contain what the search contains
+                                   .OrderBy(p => p.ToyType) //Orders them in alphabetical order
+                                   .ToListAsync(); //Turns results into a list */
+            List<Clothing> clothings = await _context.Clothing //Gets all books from database 
+                                  .Where(p => p.StatusId == 2)//Filters the ones thats that contain what the search contains
+                                  .OrderBy(p => p.ClothingType) //Orders them in alphabetical order
+                                  .ToListAsync(); //Turns results into a list
+
+            List<Misc> misc = await _context.Misc //Gets all books from database 
+                                  .Where(b => b.StatusId ==2)//Filters the ones thats that contain what the search contains
+                                  .OrderBy(p => p.Description) //Orders them in alphabetical order
+                                  .ToListAsync(); //Turns results into a li
+
+
+            HomeIndexViewModel viewModel = new HomeIndexViewModel(); //Creates new view model
+
+            viewModel.Books = books; //Attaches the searched products to the view model
+            viewModel.Toys = toys;
+            viewModel.Clothings = clothings;
+            viewModel.Miscs = misc;
+  
+
+
+            return View(viewModel); //Sends the view model to the view
+           
+        }
+
+       
 
         public IActionResult Index()
             {
