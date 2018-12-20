@@ -49,6 +49,8 @@ namespace HandItDown.Controllers
             }
 
             var misc = await _context.Misc
+                .Include(m => m.Status)
+                .Include(m => m.User)
                 .FirstOrDefaultAsync(m => m.MiscId == id);
             if (misc == null)
             {
