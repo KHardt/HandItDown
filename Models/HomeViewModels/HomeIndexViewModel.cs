@@ -23,12 +23,22 @@ namespace HandItDown.Models.HomeViewModels
         public ClothingType ClothingType { get; set; }
         public List<ClothingType> ClothingTypes { get; set; }
 
+        public ToyType ToyType { get; set; }
+        public List<ToyType> ToyTypes { get; set; }
+
         [Required]
         [StringLength(255)]
         [Display(Name = "Category:")]
         public string Label { get; set; }
 
-  
+
+      
+
+
+
+
+
+
 
     }
 }
