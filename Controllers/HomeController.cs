@@ -85,9 +85,9 @@ namespace HandItDown.Controllers
                                    .Where(b => b.StatusId == 2)
                                    .ToListAsync(); //Turns results into a list
             Console.WriteLine(books);
-            List<Toy> toys =  await _context.Toy //Gets all books from database      
-                                   .Where(b => b.StatusId ==2) //Filters the ones thats that contain what the search contains
-                                   .OrderBy(p => p.ToyType) //Orders them in alphabetical order
+            List<Toy> toys =  await _context.Toy 
+                                   .Where(b => b.StatusId ==2) 
+                                   .OrderBy(p => p.ToyType) 
                                    .ToListAsync(); //Turns results into a list */
             List<Clothing> clothings = await _context.Clothing //Gets all books from database 
                                   .Where(p => p.StatusId == 2)//Filters the ones thats that contain what the search contains
@@ -97,7 +97,7 @@ namespace HandItDown.Controllers
             List<Misc> misc = await _context.Misc //Gets all books from database 
                                   .Where(b => b.StatusId ==2)//Filters the ones thats that contain what the search contains
                                   .OrderBy(p => p.Description) //Orders them in alphabetical order
-                                  .ToListAsync(); //Turns results into a li
+                                  .ToListAsync(); //Turns results into a list
 
 
             HomeIndexViewModel viewModel = new HomeIndexViewModel(); //Creates new view model
@@ -113,7 +113,42 @@ namespace HandItDown.Controllers
            
         }
 
-       
+
+        public async Task<IActionResult> DonatingList()
+        {
+            List<Book> books = await _context.Book //Gets all books from database 
+                                                   //  .Include(b => b.Title)
+                                   .Where(b => b.StatusId == 3)
+                                   .ToListAsync(); //Turns results into a list
+            Console.WriteLine(books);
+            List<Toy> toys = await _context.Toy //Gets all books from database      
+                                   .Where(b => b.StatusId == 3) //Filters the ones thats that contain what the search contains
+                                   .OrderBy(p => p.ToyType) //Orders them in alphabetical order
+                                   .ToListAsync(); //Turns results into a list */
+            List<Clothing> clothings = await _context.Clothing //Gets all books from database 
+                                  .Where(p => p.StatusId == 3)//Filters the ones thats that contain what the search contains
+                                  .OrderBy(p => p.ClothingType) //Orders them in alphabetical order
+                                  .ToListAsync(); //Turns results into a list
+
+            List<Misc> misc = await _context.Misc //Gets all books from database 
+                                  .Where(b => b.StatusId == 3)//Filters the ones thats that contain what the search contains
+                                  .OrderBy(p => p.Description) //Orders them in alphabetical order
+                                  .ToListAsync(); //Turns results into a li
+
+
+            HomeIndexViewModel viewModel = new HomeIndexViewModel(); //Creates new view model
+
+            viewModel.Books = books; //Attaches the searched products to the view model
+            viewModel.Toys = toys;
+            viewModel.Clothings = clothings;
+            viewModel.Miscs = misc;
+
+
+
+            return View(viewModel); //Sends the view model to the view
+
+        }
+
 
         public IActionResult Index()
             {
