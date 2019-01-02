@@ -8,7 +8,7 @@ books, and misc section which can be anything not appropriate for the other cate
 for items that are being donated and needed (wishlist). In the event that items must be split i.e. keeping 10 matchbox
 cars but giving away 10 others, it is recommended to create an additional entry and change the status. 
 
-v2 of this application will allow other family members to view your inventory as well as be able to view theirs. 
+v2 of this application will allow other family members to view your inventory as well you being able to view theirs. 
 This will allow family members to claim items you are donating as well as see what items your child needs for events such
 as birthday and Christmas via the wishlist. 
 V2 will also not include a general inventory but instead focus solely on the needs list and wishlist allowing a match search.
