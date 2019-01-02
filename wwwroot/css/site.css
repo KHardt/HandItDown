@@ -48,7 +48,25 @@ body {
     color: ghostwhite;
 }
 
-.navbar-inverse .navbar-nav > li > a loggedinuser {
+.loggedinuser {
+    color: #9d9d9d !important;
+}
+
+td, a, href {
+    color: darkslategrey;
+}
+
+nav navbar-nav {
     color: ghostwhite;
 }
+
+.navoverride {
+    color: ghostwhite !important;
+}
+
+.btn-primary btn-sm {
+    background-color: aquamarine;
+    color: black;
+}
+
 
