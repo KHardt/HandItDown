@@ -38,3 +38,17 @@ body {
         display: none;
     }
 }
+
+.navbar-inverse .navbar-nav > li > a {
+    font-style: italic;
+    color: wheat;
+}
+
+.navbar-inverse .navbar-brand {
+    color: ghostwhite;
+}
+
+.navbar-inverse .navbar-nav > li > a loggedinuser {
+    color: ghostwhite;
+}
+
